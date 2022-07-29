@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <h1>Ivan Zhang Narrative Visualization</h1>
-    </body>
+    <head>
+        <style>
+            .wrap{
+              height: 200px;
+              overflow-x: auto;
+              overflow-y: hidden;
+              white-space: nowrap;
+            }
+            .b{
+              width: 200px;
+              height: 200px;
+            }
+            </style>
+    </head>
+
+    <!--Title-->
+    <h1 align="center">Ivan Zhang Narrative Visualization</h1>
+    <p align="center">Does Politics have something to do with COVID in USA?</p>
+    <!--Image Part-->
+    <div class="wrap" align="center">
+        <img src="covid-cartoon.jpg" alt="" class="b">
+        <img src="versus.jpg" alt="" class="b">
+        <img src="parties.png" alt="" class="b">
+    </div>
+    <!--Submit Button-->
     <form>
-        <button type="submit" formaction="mask.html">Click me</button>
+        <button type="submit" formaction="experiment.html">Next Page</button>
      </form>
-    <script src='https://d3js.org/d3.v5.min.js'></script>
-    <style> circle {fill: lightblue; stroke: black;} </style>
-    <body onload='init()'>
-        <svg width=300 height=300>
-        </svg>
-    </body>
+    
+     <script src='https://d3js.org/d3.v5.min.js'></script>
 </html>
