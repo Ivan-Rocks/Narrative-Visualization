@@ -21,8 +21,8 @@
                 .attr("transform","translate(50,50)")
                 .selectAll("circle")
                 .data(data).enter().append("circle")
-                .attr("cx",function(d,i){return x(i)})
-                .attr("cy",function(d,i){return y(i)})
+                .attr("cx",function(d,i){return x(1*d.CasesAvgPer100K)})
+                .attr("cy",function(d,i){return y(1*d.Never)})
                 .attr("r",function(d,i){return 5})
                 //Horizontal Axis
                 d3.select("svg").append("g")
