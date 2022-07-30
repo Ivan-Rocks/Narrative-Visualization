@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Mask vs Cases</h1>
+    </body>
+    <form>
+        <button type="submit" formaction="index.html">Home Page</button>
+     </form>
+    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <style> circle {fill: lightblue; stroke: black;} </style>
+    <body onload='init()'>
+        <svg width=800 height=800>
+        </svg>
+        <script>
+            async function init() {
+                var data = await d3.csv("https://raw.githubusercontent.com/Ivan-Rocks/Narrative-Visualization/main/mask-case-vote.csv")
+                var x = d3.scaleLinear().domain([0,40]).range([0,600]);
+                var y = d3.scaleLinear().domain([0,0.2]).range([600,0]);
+                //Graph
+                d3.select("svg").append("g")
+                .attr("transform","translate(50,50)")
+                .selectAll("circle")
+                .data(data).enter().append("circle")
+                .attr("cx",function(d,i){return x(d.CasesAvgPer100K)})
+                .attr("cy",function(d,i){return y(d.Never)})
+                .attr("r",5)
+                //Horizontal Axis
+                d3.select("svg").append("g")
+                .attr("transform","translate(50,650)")
+                .call(d3.axisBottom(x))
+                //Vertical Axis
+                d3.select("svg").append("g")
+                .attr("transform","translate(50,50)")
+                .call(d3.axisLeft(y))
+            }
+        </script>
+    </body>
+    <body>
+        <p>Place Holder</p>
+    </body>
+</html>
