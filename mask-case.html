@@ -20,6 +20,7 @@
         <h1 align="center">Mask vs Cases</h1>
     </body>
     <script src='https://d3js.org/d3.v5.min.js'></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <style> circle {stroke: black;} </style>
     <body onload='init()' align="center">
         <svg width=800 height=500>
@@ -67,6 +68,33 @@
                 d3.select("svg").append("g")
                 .attr("transform","translate(50,50)")
                 .call(d3.axisLeft(y))
+                //Line
+                d3.select("svg").append("g")
+                    .append('line')
+                    .style("stroke", "lightgreen")
+                    .style("stroke-width", 5)
+                    .attr("x1", 50)
+                    .attr("y1", 450)
+                    .attr("x2", 600)
+                    .attr("y2", 150);
+                //Annotation
+                const annotations = [
+                {
+                    note: {
+                    label: "Here is the annotation label",
+                    title: "Annotation title"
+                    },
+                    x: 100,
+                    y: 100,
+                    dy: 100,
+                    dx: 100
+                }
+                ]
+                const makeAnnotations = d3.annotation()
+                                        .annotations(annotations)
+                                        d3.select("svg")
+                                        .append("g")
+                                        .call(makeAnnotations)
             }
         </script>
     </body>
