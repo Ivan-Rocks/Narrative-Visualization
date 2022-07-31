@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h1>Mask vs Cases</h1>
+        <style>
+            div.tooltip {	
+            position: absolute;			
+            text-align: center;			
+            width: 60px;					
+            height: 25px;					
+            padding: 2px;				
+            font: 12px sans-serif;		
+            background: rgb(222, 198, 176);	
+            border: 0px;		
+            border-radius: 8px;			
+            pointer-events: none;			
+            }
+        </style>
     </body>
-    <form>
-        <button type="submit" formaction="index.html">Home Page</button>
-     </form>
+    <body>
+        <h1 align="center">Mask vs Cases</h1>
+    </body>
     <script src='https://d3js.org/d3.v5.min.js'></script>
-    <style> circle {fill: lightblue; stroke: black;} </style>
-    <body onload='init()'>
-        <svg width=800 height=800>
+    <style> circle {stroke: black;} </style>
+    <body onload='init()' align="center">
+        <svg width=800 height=500>
         </svg>
         <script>
             async function init() {
                 var data = await d3.csv("https://raw.githubusercontent.com/Ivan-Rocks/Narrative-Visualization/main/mask-case-vote.csv")
                 var x = d3.scaleLinear().domain([0,50]).range([0,600]);
                 var y = d3.scaleLinear().domain([0,0.2]).range([400,0]);
+                var div = d3.select("body").append("div")	
+                            .attr("class", "tooltip")				
+                            .style("opacity", 0);
                 //Graph
                 d3.select("svg").append("g")
                 .attr("transform","translate(50,50)")
@@ -24,6 +40,25 @@
                 .attr("cx",function(d,i){return x(1*d.CasesAvgPer100K)})
                 .attr("cy",function(d,i){return y(1*d.Never)})
                 .attr("r",function(d,i){return 5})
+                .attr("fill",function(d,i){
+                    if(1*d.PercentDemocrat>50.0) {
+                        return "lightblue";
+                    }
+                    return "red"
+                })
+                .on("mouseover", function(d) {		
+                    div.transition()		
+                    .duration(200)		
+                    .style("opacity", .9);		
+                    div	.html(d.State)	
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");	
+                })					
+                .on("mouseout", function(d) {		
+                    div.transition()		
+                    .duration(500)		
+                    .style("opacity", 0);	
+                })
                 //Horizontal Axis
                 d3.select("svg").append("g")
                 .attr("transform","translate(50,450)")
@@ -35,7 +70,10 @@
             }
         </script>
     </body>
-    <body>
-        <p>Place Holder</p>
-    </body>
+    <p>
+        Place Holder for text
+    </p>
+    <form>
+        <button type="submit" formaction="index.html">Home Page</button>
+     </form>
 </html>
