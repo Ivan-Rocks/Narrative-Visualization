@@ -60,14 +60,27 @@
                     .duration(500)		
                     .style("opacity", 0);	
                 })
-                //Horizontal Axis
+                //Horizontal Axis and Label
                 d3.select("svg").append("g")
                 .attr("transform","translate(50,450)")
                 .call(d3.axisBottom(x))
-                //Vertical Axis
+                d3.select("svg").append("g")
+                    .append("text")             
+                    .attr("transform","translate(350,500)")
+                    .style("text-anchor", "middle")
+                    .text("X-axis");
+                //Vertical Axis and Label
                 d3.select("svg").append("g")
                 .attr("transform","translate(50,50)")
                 .call(d3.axisLeft(y))
+                d3.select("svg").append("g")
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0)
+                    .attr("x",-250)
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Y-axis");
                 //Line
                 d3.select("svg").append("g")
                     .append('line')
@@ -84,8 +97,8 @@
                     label: "Here is the annotation label",
                     title: "Annotation title"
                     },
-                    x: 100,
-                    y: 100,
+                    x: 400,
+                    y: 265,
                     dy: 100,
                     dx: 100
                 }
