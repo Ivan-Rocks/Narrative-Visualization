@@ -18,6 +18,17 @@
     </body>
     <body>
         <h1 align="center">Mask vs Cases</h1>
+        <p>
+            First of all, lets see if mask wearing is really having an impact on covid cases:
+        </p>
+        <p>
+            For the sake of simplicity, in this section, we shall investigate the relationship
+            between COVID cases per 100k people and the percentage of people who never wear masks.
+             If there is a positive relationship between COVID cases and the percentage of people 
+             who never wear masks, mask wearing can be used as a substitute indicator of COVID situations.
+             Another reason for choosing mask wearing as a substitute indicator stems from the fact that
+             mask wearing is one key factor democrats and republicans see differently on COVID.
+        </p>
     </body>
     <script src='https://d3js.org/d3.v5.min.js'></script>
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
@@ -68,7 +79,7 @@
                     .append("text")             
                     .attr("transform","translate(350,500)")
                     .style("text-anchor", "middle")
-                    .text("X-axis");
+                    .text("COVID cases per 100k");
                 //Vertical Axis and Label
                 d3.select("svg").append("g")
                 .attr("transform","translate(50,50)")
@@ -80,7 +91,7 @@
                     .attr("x",-250)
                     .attr("dy", "1em")
                     .style("text-anchor", "middle")
-                    .text("Y-axis");
+                    .text("Never wear mask percentage");
                 //Line
                 d3.select("svg").append("g")
                     .append('line')
@@ -94,8 +105,8 @@
                 const annotations = [
                 {
                     note: {
-                    label: "Here is the annotation label",
-                    title: "Annotation title"
+                    label: "Explanation of Trend Line as seen below",
+                    title: "Trend Line"
                     },
                     x: 400,
                     y: 265,
@@ -112,9 +123,19 @@
         </script>
     </body>
     <p>
-        Place Holder for text
+       As the trend line indicates, there is indeed a correlation betweeen mask wearing
+       and COVID cases.
+    </p>
+    <p align="center">
+        <b>Therefore, the more percentage of people who never wear masks, the more
+            people get COVID!
+        </b>
     </p>
     <form>
-        <button type="submit" formaction="index.html">Home Page</button>
-     </form>
+        <button type="submit" formaction="index.html">Previous</button>
+    </form>
+    <p> </p>
+    <form>
+        <button type="submit" formaction="republican-mask.html">Next</button>
+    </form>
 </html>

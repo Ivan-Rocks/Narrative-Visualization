@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <style>
+            div.tooltip {	
+            position: absolute;			
+            text-align: center;			
+            width: 60px;					
+            height: 25px;					
+            padding: 2px;				
+            font: 12px sans-serif;		
+            background: rgb(222, 198, 176);	
+            border: 0px;		
+            border-radius: 8px;			
+            pointer-events: none;			
+            }
+        </style>
+    </body>
+    <body>
+        <h1 align="center">Democrats' willingness to wear masks</h1>
+        <p>
+            Democrats, on the other hand, are quite willing to wear masks. I have also generated a 
+            customized parameter, active users (percentage of always wear mask + 1/2 frequently wear mask), since 
+             it is resonable for people to not wear masks in some situations.
+        </p>
+    </body>
+    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+    <style> circle {stroke: black;} </style>
+    <body onload='init()' align="center">
+        <svg width=800 height=500>
+        </svg>
+        <script>
+            async function init() {
+                var data = await d3.csv("https://raw.githubusercontent.com/Ivan-Rocks/Narrative-Visualization/main/mask-case-vote.csv")
+                var x = d3.scaleLinear().domain([0,100]).range([0,600]);
+                var y = d3.scaleLinear().domain([0.3,0.9]).range([400,0]);
+                var div = d3.select("body").append("div")	
+                            .attr("class", "tooltip")				
+                            .style("opacity", 0);
+                //Graph
+                d3.select("svg").append("g")
+                .attr("transform","translate(50,50)")
+                .selectAll("circle")
+                .data(data).enter().append("circle")
+                .attr("cx",function(d,i){return x(1*d.PercentDemocrat)})
+                .attr("cy",function(d,i){return y(1*d.ActiveUser)})
+                .attr("r",function(d,i){return 5})
+                .attr("fill",function(d,i){
+                    if(1*d.PercentDemocrat>50.0) {
+                        return "lightblue";
+                    }
+                    return "red"
+                })
+                .on("mouseover", function(d) {		
+                    div.transition()		
+                    .duration(200)		
+                    .style("opacity", .9);		
+                    div	.html(d.State)	
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");	
+                })					
+                .on("mouseout", function(d) {		
+                    div.transition()		
+                    .duration(500)		
+                    .style("opacity", 0);	
+                })
+                //Horizontal Axis and Label
+                d3.select("svg").append("g")
+                .attr("transform","translate(50,450)")
+                .call(d3.axisBottom(x))
+                d3.select("svg").append("g")
+                    .append("text")             
+                    .attr("transform","translate(350,500)")
+                    .style("text-anchor", "middle")
+                    .text("Percent Democratic");
+                //Vertical Axis and Label
+                d3.select("svg").append("g")
+                .attr("transform","translate(50,50)")
+                .call(d3.axisLeft(y))
+                d3.select("svg").append("g")
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0)
+                    .attr("x",-250)
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Percent Active User");
+                //Line
+                d3.select("svg").append("g")
+                    .append('line')
+                    .style("stroke", "lightgreen")
+                    .style("stroke-width", 5)
+                    .attr("x1", 200)
+                    .attr("y1", 450)
+                    .attr("x2", 450)
+                    .attr("y2", 50);
+                //Annotation
+                const annotations = [
+                {
+                    note: {
+                        label: "Explanation of Trend Line as seen below",
+                        title: "Trend Line"
+                    },
+                    x: 350,
+                    y: 220,
+                    dy: 100,
+                    dx: 100
+                }
+                ]
+                const makeAnnotations = d3.annotation()
+                                        .annotations(annotations)
+                                        d3.select("svg")
+                                        .append("g")
+                                        .call(makeAnnotations)
+            }
+        </script>
+    </body>
+    <p>
+        As the trend line indicates, a positive relatoinship exists between the percentage of
+        democratic votes and the percentage of active mask users.
+     </p>
+     <p align="center">
+         <b>The more democratic, the more people wear masks!
+         </b>
+     </p>
+    <form>
+        <button type="submit" formaction="republican-mask.html">Previous</button>
+    </form>
+    <p> </p>
+    <form>
+        <button type="submit" formaction="conclusion.html">Conclusion</button>
+    </form>
+</html>
